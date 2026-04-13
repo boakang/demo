@@ -49,6 +49,6 @@ lib/
 
 ## 8. Màn hình
 - Màn hình nhập mã dự án
-https://github.com/boakang/demo/blob/main/Screenshot%202026-04-13%20111036.png
+[Hình Nhập mã dự án](https://github.com/boakang/demo/blob/main/Screenshot%202026-04-13%20111036.png)
 - Màn hình đăng nhập
-https://github.com/boakang/demo/blob/main/Screenshot%202026-04-13%20110652.png
+[Hình Đăng nhập](https://github.com/boakang/demo/blob/main/Screenshot%202026-04-13%20110652.png)
