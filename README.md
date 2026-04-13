@@ -117,4 +117,4 @@ Ghi chú:
 
 - Màn hình đăng nhập
   
-![Hình Đăng nhập](https://github.com/boakang/demo/blob/main/Screenshot%202026-04-13%20110652.png)
+![Hình Đăng nhập](https://github.com/boakang/demo/blob/main/Screenshot%202026-04-13%20135516.png)
