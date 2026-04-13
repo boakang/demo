@@ -1,0 +1,48 @@
+# MobileApp - Tóm tắt điều hành
+
+## 1. Mục tiêu dự án
+Ứng dụng Flutter phục vụ demo luồng đăng nhập theo mã dự án:
+- Bước 1: Xác thực mã dự án.
+- Bước 2: Đăng nhập tài khoản.
+- Bước 3: Vào màn hình trạng thái sau đăng nhập.
+
+## 2. Công nghệ chính
+- Flutter + Dart.
+- Quản lý state: BLoC.
+- Gọi API: HTTP.
+- Nền tảng: Android/iOS.
+
+## 3. Cấu trúc mã nguồn (rút gọn)
+```text
+lib/
+|- main.dart                # Điểm khởi chạy
+|- core_app/                # Cấu hình, giao diện dùng chung
+|- data_app/
+|  |- remote/               # API client
+|  |- repository/           # Trung gian giữa UI và API
+|  |- model*/               # Request/response models
+|  |- url/                  # Quản lý endpoint
+|- view_app/, screens/      # UI và luồng nghiệp vụ
+```
+
+## 4. Tích hợp backend
+- Backend tham chiếu: HQSOFT.UserApi.
+- Base URL cho Android Emulator: http://10.0.2.2:5064.
+- Endpoint mobile đang sử dụng:
+  - POST /api/user/validate-project.
+  - POST /api/user/login.
+
+## 5. Trạng thái hiện tại
+- Đã bỏ cấu hình cũ trỏ đến domain ngoài, chuyển về local API cho emulator.
+- Luồng mobile đã map đúng endpoint validate-project/login.
+- Lưu ý: backend hiện vẫn dùng logic hard-code cho 2 API trên, chưa gọi stored procedure.
+
+## 6. Cách chạy nhanh
+1. Chạy backend HQSOFT.UserApi ở profile HTTP (http://localhost:5064).
+2. Mở Swagger để kiểm tra API sẵn sàng.
+3. Chạy Flutter app trên Android Emulator.
+
+## 7. Hướng mở rộng để sẵn sàng production
+- Đưa logic validate-project/login vào database (stored procedure hoặc service).
+- Tách cấu hình theo môi trường (dev/staging/prod).
+- Bổ sung integration test cho luồng đăng nhập.
