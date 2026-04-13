@@ -30,62 +30,64 @@ Nếu không dùng BLoC:
 ## 3. Cấu trúc mã nguồn (rút gọn)
 ```text
 lib/
-|- main.dart
-|- core_app/
-|- data_app/
-|- view_app/
-|- screens/
-|- model_app/
-|- widgets/
-|- styles/
+|-- main.dart                                      // Điểm khởi chạy app, route, BlocProvider
+|
+|-- core_app
+|   |-- config/app_config.dart                     // Cấu hình chung
+|   |-- style
+|   |   |-- app_colors.dart                        // Màu dùng toàn app
+|   |   |-- app_text_styles.dart                   // Text style dùng chung
+|   |   `-- app_theme.dart                         // Theme tổng thể
+|   |-- widgets
+|   |   |-- general_button.dart                    // Nút dùng lại
+|   |   |-- general_text_field.dart                // Ô nhập liệu dùng lại
+|   |   `-- loading_view.dart                      // Hiển thị loading
+|   |-- dialog/app_dialog.dart                     // Hộp thoại thông báo/lỗi
+|   |-- utilities
+|   |   |-- api_exception.dart                     // Chuẩn hóa lỗi API
+|   |   `-- api_status_code_helper.dart            // Map mã trạng thái HTTP
+|   |-- local_storage/local_storage_service.dart   // Lưu trữ cục bộ
+|   |-- service/auth_header_service.dart           // Gắn auth header cho request
+|   |-- language/app_locales.dart                  // Khai báo locale
+|   `-- formatter/no_leading_space_formatter.dart  // Chặn khoảng trắng đầu chuỗi
+|
+|-- data_app
+|   |-- url/app_urls.dart                          // Quản lý endpoint
+|   |-- remote
+|   |   |-- api_client.dart                        // HTTP client nền tảng
+|   |   `-- demo_api_client.dart                   // API validate project/login
+|   |-- repository
+|   |   |-- demo_repository.dart                   // Contract repository
+|   |   `-- auth_repository.dart                   // Triển khai gọi API auth
+|   |-- model
+|   |   |-- demo_model.dart                        // Model kết quả chung
+|   |   |-- login_request.dart                     // Request đăng nhập
+|   |   |-- login_response.dart                    // Response đăng nhập
+|   |   `-- validate_project_request.dart          // Request validate mã dự án
+|   |-- model_map_json/demo_model_map_json.dart    // Mapper JSON -> model
+|   |-- model_body_request/demo_body_request_model.dart
+|   |                                              // Model body request demo
+|   |-- model_body_request_map_json/demo_body_request_model_map_json.dart
+|   |                                              // Mapper body request <-> JSON
+|   `-- constant/app_constants.dart                // Hằng số lớp data
+|
+|-- view_app/demo
+|   |-- demo_screen.dart                           // Khung màn hình demo
+|   |-- demo_form.dart                             // Form chính của flow validate/login
+|   `-- bloc_demo
+|       |-- demo_event.dart                        // Event BLoC
+|       |-- demo_state.dart                        // State BLoC
+|       `-- demo_bloc.dart                         // Xử lý event, gọi repository, emit state
+|
+|-- screens
+|   |-- validate_project_screen.dart               // Màn hình nhập mã dự án
+|   |-- login_screen.dart                          // Màn hình đăng nhập
+|   `-- home_screen.dart                           // Màn hình sau đăng nhập
+|
+|-- model_app/widgets/status_panel.dart            // Widget hiển thị trạng thái
+|-- widgets/background_layout.dart                 // Layout nền dùng chung
+`-- styles/                                        // Nơi mở rộng style theo module
 ```
-
-Mô tả thư mục và file chính:
-
-- lib/main.dart: Điểm khởi chạy app, cấu hình MaterialApp, route và BlocProvider.
-
-- lib/core_app/config/app_config.dart: Cấu hình chung của ứng dụng.
-- lib/core_app/style/app_colors.dart: Khai báo màu dùng toàn app.
-- lib/core_app/style/app_text_styles.dart: Khai báo text style dùng chung.
-- lib/core_app/style/app_theme.dart: Theme tổng thể cho MaterialApp.
-- lib/core_app/widgets/general_button.dart: Nút dùng lại cho nhiều màn hình.
-- lib/core_app/widgets/general_text_field.dart: TextField dùng lại, thống nhất UI nhập liệu.
-- lib/core_app/widgets/loading_view.dart: Widget hiển thị loading.
-- lib/core_app/dialog/app_dialog.dart: Hộp thoại thông báo/lỗi dùng chung.
-- lib/core_app/utilities/api_exception.dart: Định nghĩa lỗi API.
-- lib/core_app/utilities/api_status_code_helper.dart: Xử lý và map mã trạng thái HTTP.
-- lib/core_app/local_storage/local_storage_service.dart: Lưu trữ cục bộ.
-- lib/core_app/service/auth_header_service.dart: Tạo header xác thực cho request.
-- lib/core_app/language/app_locales.dart: Khai báo ngôn ngữ/locale.
-- lib/core_app/formatter/no_leading_space_formatter.dart: Formatter chặn khoảng trắng đầu chuỗi.
-
-- lib/data_app/url/app_urls.dart: Quản lý endpoint backend.
-- lib/data_app/remote/api_client.dart: HTTP client nền tảng (GET/POST, parse response).
-- lib/data_app/remote/demo_api_client.dart: API client cho luồng validate project và login.
-- lib/data_app/repository/demo_repository.dart: Interface repository cho màn hình demo.
-- lib/data_app/repository/auth_repository.dart: Repository triển khai gọi API auth.
-- lib/data_app/model/demo_model.dart: Model kết quả chung cho validate/login.
-- lib/data_app/model/login_request.dart: Model request đăng nhập.
-- lib/data_app/model/login_response.dart: Model response đăng nhập.
-- lib/data_app/model/validate_project_request.dart: Model request validate mã dự án.
-- lib/data_app/model_map_json/demo_model_map_json.dart: Mapper JSON -> model kết quả.
-- lib/data_app/model_body_request/demo_body_request_model.dart: Model body request dùng trong luồng demo.
-- lib/data_app/model_body_request_map_json/demo_body_request_model_map_json.dart: Mapper model body request <-> JSON.
-- lib/data_app/constant/app_constants.dart: Hằng số dùng trong lớp data.
-
-- lib/view_app/demo/demo_form.dart: Màn hình/form demo chính của flow xác thực + đăng nhập.
-- lib/view_app/demo/demo_screen.dart: Khung màn hình demo.
-- lib/view_app/demo/bloc_demo/demo_event.dart: Định nghĩa event cho BLoC.
-- lib/view_app/demo/bloc_demo/demo_state.dart: Định nghĩa state cho BLoC.
-- lib/view_app/demo/bloc_demo/demo_bloc.dart: Xử lý event, gọi repository và emit state.
-
-- lib/screens/validate_project_screen.dart: Màn hình nhập và kiểm tra mã dự án.
-- lib/screens/login_screen.dart: Màn hình đăng nhập sau khi mã dự án hợp lệ.
-- lib/screens/home_screen.dart: Màn hình kết quả/trạng thái sau đăng nhập.
-
-- lib/model_app/widgets/status_panel.dart: Widget hiển thị trạng thái kết quả.
-- lib/widgets/background_layout.dart: Layout nền dùng chung cho UI.
-- lib/styles/: Nơi tổ chức style riêng của module (nếu có mở rộng).
 
 ## 4. Tích hợp backend
 - Backend tham chiếu: HQSOFT.UserApi.
