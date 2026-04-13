@@ -1,6 +1,6 @@
-# MobileApp - Tóm tắt điều hành
+# MobileApp
 
-## 1. Mục tiêu dự án
+## 1. Mục tiêu
 Ứng dụng Flutter phục vụ demo luồng đăng nhập theo mã dự án:
 - Bước 1: Xác thực mã dự án.
 - Bước 2: Đăng nhập tài khoản.
@@ -46,3 +46,9 @@ lib/
 - Đưa logic validate-project/login vào database (stored procedure hoặc service).
 - Tách cấu hình theo môi trường (dev/staging/prod).
 - Bổ sung integration test cho luồng đăng nhập.
+
+## 8. Màn hình
+- Màn hình nhập mã dự án
+https://github.com/boakang/demo/blob/main/Screenshot%202026-04-13%20111036.png
+- Màn hình đăng nhập
+https://github.com/boakang/demo/blob/main/Screenshot%202026-04-13%20110652.png
