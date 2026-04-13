@@ -96,6 +96,15 @@ Ghi chú nghiệp vụ hiện tại:
 - Luồng mobile đã map đúng endpoint validate-project/login.
 - Lưu ý: backend hiện vẫn dùng logic hard-code cho 2 API trên, chưa gọi stored procedure.
 
+## 5.1 Các nội dung đã đạt (tóm tắt)
+- Đã triển khai đầy đủ mô hình BLoC cho luồng đăng nhập (bloc, event, state).
+- Đã hoàn thiện luồng 2 bước: xác thực mã dự án trước, sau đó đăng nhập tài khoản.
+- Đã kết nối đúng 2 API backend chính:
+  - POST /api/user/validate-project.
+  - POST /api/user/login.
+- Payload đăng nhập đã đồng bộ với backend (username, password, projectCode).
+- Màn hình demo đã chạy được luồng nhập mã dự án -> đăng nhập -> phản hồi kết quả.
+
 ## 6. Cách chạy nhanh
 1. Chạy backend HQSOFT.UserApi ở profile HTTP (http://localhost:5064).
 2. Mở Swagger để kiểm tra API sẵn sàng.
