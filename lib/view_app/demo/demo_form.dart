@@ -403,7 +403,7 @@ class _LoginCard extends StatelessWidget {
             const SizedBox(height: 16),
             GeneralTextField(
               controller: userNameController,
-              labelText: 'Tên đăng nhập (trùng Name)',
+              labelText: 'Tên đăng nhập',
               hintText: 'Ví dụ: Nguyen Quoc An',
               prefixIcon: const Icon(Icons.person_outline),
               inputFormatters: const [NoLeadingSpaceFormatter()],
