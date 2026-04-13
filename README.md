@@ -12,6 +12,11 @@
 - Gọi API: HTTP.
 - Nền tảng: Android/iOS.
 
+### BLoC trong project này có ý nghĩa gì?
+- BLoC là lớp điều phối luồng nghiệp vụ giữa giao diện và API.
+- UI chỉ phát sự kiện (như xác thực mã dự án, đăng nhập), BLoC xử lý và trả về state để UI tự cập nhật.
+- Tác dụng chính: tách logic ra khỏi màn hình, code dễ bảo trì hơn, dễ test hơn, và xử lý loading/success/error nhất quán.
+
 ## 3. Cấu trúc mã nguồn (rút gọn)
 ```text
 lib/
