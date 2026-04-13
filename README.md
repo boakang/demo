@@ -15,6 +15,18 @@
 ### BLoC trong project này
 BLoC là lớp trung gian giữa UI và API. UI chỉ gửi sự kiện, BLoC xử lý logic và dữ liệu, rồi trả state để màn hình tự cập nhật loading, success hoặc error.
 
+Tác dụng chính trong project:
+- Tách logic nghiệp vụ khỏi UI, màn hình gọn và dễ bảo trì.
+- Quản lý trạng thái thống nhất cho các trạng thái loading, success, error.
+- Dễ mở rộng flow xác thực mã dự án -> đăng nhập mà không phải sửa nhiều màn hình.
+- Dễ test phần nghiệp vụ theo event/state.
+
+Nếu không dùng BLoC:
+- Logic validate/login dễ bị nhúng trực tiếp vào UI, code khó đọc hơn.
+- Dễ lặp code gọi API và xử lý lỗi giữa các màn hình.
+- Khó kiểm soát state khi có nhiều thao tác async.
+- Việc test và mở rộng tính năng sẽ tốn công hơn.
+
 ## 3. Cấu trúc mã nguồn (rút gọn)
 ```text
 lib/
