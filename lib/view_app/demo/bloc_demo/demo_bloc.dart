@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import '../../../core_app/local_storage/local_storage_service.dart';
 import '../../../data_app/repository/auth_repository.dart';
 
 part 'demo_event.dart';
@@ -49,6 +50,9 @@ class DemoBloc extends Bloc<DemoEvent, DemoState> {
       );
 
       if (result.success) {
+        await LocalStorageService.instance.setAuthToken(
+          (result.token ?? '').trim(),
+        );
         emit(
           LoginSuccessState(
             userId: (result.userId ?? '0').trim(),

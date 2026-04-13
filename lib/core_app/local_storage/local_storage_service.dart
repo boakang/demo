@@ -1,24 +1,27 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
 class LocalStorageService {
   LocalStorageService._internal();
 
   static final LocalStorageService instance = LocalStorageService._internal();
 
-  final Map<String, String> _memoryStorage = <String, String>{
-    _authTokenKey: 'mock-demo-token',
-  };
-
   static const String _authTokenKey = 'auth_token';
 
+  Future<SharedPreferences> get _prefs async => SharedPreferences.getInstance();
+
   Future<String?> getAuthToken() async {
-    return _memoryStorage[_authTokenKey];
+    final prefs = await _prefs;
+    return prefs.getString(_authTokenKey);
   }
 
   Future<void> setAuthToken(String token) async {
-    _memoryStorage[_authTokenKey] = token;
+    final prefs = await _prefs;
+    await prefs.setString(_authTokenKey, token);
   }
 
   Future<void> clearAuthToken() async {
-    _memoryStorage.remove(_authTokenKey);
+    final prefs = await _prefs;
+    await prefs.remove(_authTokenKey);
   }
 }
 
