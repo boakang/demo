@@ -10,6 +10,9 @@ class LoginResultModelMapJson {
     return LoginResultModel(
       success: _toBool(map['success'] ?? map['isSuccess'] ?? data['success']),
       message: _toString(map['message'] ?? map['msg'] ?? data['message']),
+      userId: _toNullableString(
+        map['userId'] ?? map['user_id'] ?? data['userId'] ?? data['user_id'],
+      ),
       projectCode: _toNullableString(
         map['projectCode'] ?? map['project_code'] ?? data['projectCode'],
       ),
@@ -25,6 +28,7 @@ class LoginResultModelMapJson {
     return <String, dynamic>{
       'success': model.success,
       'message': model.message,
+      'userId': model.userId,
       'projectCode': model.projectCode,
       'userName': model.userName,
       'token': model.token,

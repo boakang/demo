@@ -4,6 +4,7 @@ class LoginResultModel extends Equatable {
   const LoginResultModel({
     required this.success,
     required this.message,
+    this.userId,
     this.projectCode,
     this.userName,
     this.token,
@@ -12,6 +13,7 @@ class LoginResultModel extends Equatable {
 
   final bool success;
   final String message;
+  final String? userId;
   final String? projectCode;
   final String? userName;
   final String? token;
@@ -20,6 +22,7 @@ class LoginResultModel extends Equatable {
   LoginResultModel copyWith({
     bool? success,
     String? message,
+    String? userId,
     String? projectCode,
     String? userName,
     String? token,
@@ -28,6 +31,7 @@ class LoginResultModel extends Equatable {
     return LoginResultModel(
       success: success ?? this.success,
       message: message ?? this.message,
+      userId: userId ?? this.userId,
       projectCode: projectCode ?? this.projectCode,
       userName: userName ?? this.userName,
       token: token ?? this.token,
@@ -36,6 +40,6 @@ class LoginResultModel extends Equatable {
   }
 
   @override
-  List<Object?> get props => [success, message, projectCode, userName, token];
+  List<Object?> get props => [success, message, userId, projectCode, userName, token];
 }
 

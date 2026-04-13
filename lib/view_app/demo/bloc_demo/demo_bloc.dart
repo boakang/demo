@@ -51,7 +51,7 @@ class DemoBloc extends Bloc<DemoEvent, DemoState> {
       if (result.success) {
         emit(
           LoginSuccessState(
-            userId: '0',
+            userId: (result.userId ?? '0').trim(),
             userName: (result.userName ?? '').trim(),
             token: (result.token ?? '').trim(),
             projectCode: (result.projectCode ?? event.projectCode).trim(),
