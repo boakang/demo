@@ -42,13 +42,9 @@ lib/
 |   |   |-- general_button.dart                    // Nút dùng lại
 |   |   |-- general_text_field.dart                // Ô nhập liệu dùng lại
 |   |   `-- loading_view.dart                      // Hiển thị loading
-|   |-- dialog/app_dialog.dart                     // Hộp thoại thông báo/lỗi
-|   |-- utilities
-|   |   |-- api_exception.dart                     // Chuẩn hóa lỗi API
-|   |   `-- api_status_code_helper.dart            // Map mã trạng thái HTTP
+|   |-- utilities/api_exception.dart               // Chuẩn hóa lỗi API
 |   |-- local_storage/local_storage_service.dart   // Lưu trữ cục bộ
-|   |-- service/auth_header_service.dart           // Gắn auth header cho request
-|   |-- language/app_locales.dart                  // Khai báo locale
+|   |-- service/auth_header_service.dart           // Hỗ trợ tạo auth header từ token local
 |   `-- formatter/no_leading_space_formatter.dart  // Chặn khoảng trắng đầu chuỗi
 |
 |-- data_app
@@ -57,22 +53,16 @@ lib/
 |   |   |-- api_client.dart                        // HTTP client nền tảng
 |   |   `-- demo_api_client.dart                   // API validate project/login
 |   |-- repository
-|   |   |-- demo_repository.dart                   // Contract repository
-|   |   `-- auth_repository.dart                   // Triển khai gọi API auth
-|   |-- model
-|   |   |-- demo_model.dart                        // Model kết quả chung
-|   |   |-- login_request.dart                     // Request đăng nhập
-|   |   |-- login_response.dart                    // Response đăng nhập
-|   |   `-- validate_project_request.dart          // Request validate mã dự án
-|   |-- model_map_json/demo_model_map_json.dart    // Mapper JSON -> model
+|   |   `-- auth_repository.dart                   // Repository auth dùng cho BLoC
+|   |-- model/demo_model.dart                      // Model kết quả login/validate
+|   |-- model_map_json/demo_model_map_json.dart    // Mapper JSON response -> model
 |   |-- model_body_request/demo_body_request_model.dart
-|   |                                              // Model body request demo
+|   |                                              // Model request body cho login
 |   |-- model_body_request_map_json/demo_body_request_model_map_json.dart
-|   |                                              // Mapper body request <-> JSON
-|   `-- constant/app_constants.dart                // Hằng số lớp data
+|   |                                              // Mapper model request <-> JSON
+|   `-- constant/                                  // (đang để trống)
 |
 |-- view_app/demo
-|   |-- demo_screen.dart                           // Khung màn hình demo
 |   |-- demo_form.dart                             // Form chính của flow validate/login
 |   `-- bloc_demo
 |       |-- demo_event.dart                        // Event BLoC
@@ -83,10 +73,6 @@ lib/
 |   |-- validate_project_screen.dart               // Màn hình nhập mã dự án
 |   |-- login_screen.dart                          // Màn hình đăng nhập
 |   `-- home_screen.dart                           // Màn hình sau đăng nhập
-|
-|-- model_app/widgets/status_panel.dart            // Widget hiển thị trạng thái
-|-- widgets/background_layout.dart                 // Layout nền dùng chung
-`-- styles/                                        // Nơi mở rộng style theo module
 ```
 
 ## 4. Tích hợp backend
@@ -152,8 +138,8 @@ Lỗi thường gặp:
 - 401: sai username, password hoặc projectCode.
 
 Ghi chú:
-- Backend demo hiện dùng logic hard-code cho 2 route trên.
-- Chưa đưa logic validate-project/login xuống stored procedure.
+- Backend tham chiếu được triển khai trong HQSOFT.UserApi.
+- Mobile app đang gọi đúng 2 endpoint trên theo flow validate-project -> login.
 
 ## 5. Trạng thái hiện tại
 - Đã chuyển cấu hình về local API cho emulator.
