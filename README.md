@@ -32,6 +32,65 @@ lib/
   - POST /api/user/validate-project.
   - POST /api/user/login.
 
+### Giải thích chi tiết 2 route chính
+
+#### 1) POST /api/user/validate-project
+- Mục đích: kiểm tra mã dự án người dùng nhập có hợp lệ trước khi cho phép sang bước đăng nhập.
+- Request body:
+
+```json
+{
+  "projectCode": "TCJFOOD"
+}
+```
+
+- Kết quả thành công (HTTP 200):
+
+```json
+{
+  "success": true,
+  "message": "Project code is valid.",
+  "data": {}
+}
+```
+
+- Kết quả lỗi thường gặp:
+  - HTTP 400: payload không hợp lệ hoặc mã dự án không đúng.
+
+#### 2) POST /api/user/login
+- Mục đích: xác thực tài khoản sau khi mã dự án đã hợp lệ.
+- Request body:
+
+```json
+{
+  "username": "S03",
+  "password": "Admin@123",
+  "projectCode": "TCJFOOD"
+}
+```
+
+- Kết quả thành công (HTTP 200):
+
+```json
+{
+  "success": true,
+  "message": "Login successfully.",
+  "data": {
+    "userId": "U001",
+    "userName": "S03",
+    "token": "..."
+  }
+}
+```
+
+- Kết quả lỗi thường gặp:
+  - HTTP 400: payload thiếu trường bắt buộc.
+  - HTTP 401: sai username/password/projectCode.
+
+Ghi chú nghiệp vụ hiện tại:
+- Backend đang dùng logic hard-code cho 2 route trên trong môi trường demo.
+- Chưa gọi stored procedure cho validate-project/login.
+
 ## 5. Trạng thái hiện tại
 - Đã bỏ cấu hình cũ trỏ đến domain ngoài, chuyển về local API cho emulator.
 - Luồng mobile đã map đúng endpoint validate-project/login.
