@@ -16,7 +16,7 @@ class LoginApiClient {
       body: <String, dynamic>{'projectCode': projectCode},
     );
     final model = LoginResultModelMapJson.fromJson(response);
-    return model.copyWith(projectCode: projectCode.trim().toUpperCase());
+    return model.copyWith(projectCode: projectCode);
   }
 
   Future<LoginResultModel> authenticateToken(LoginRequestModel body) async {

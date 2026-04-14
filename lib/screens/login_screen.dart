@@ -69,8 +69,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: isLoading
                         ? null
                         : () {
-                      final username = _usernameController.text.trim();
-                      final password = _passwordController.text.trim();
+                      final username = _usernameController.text;
+                      final password = _passwordController.text;
                       
                       if (username.isEmpty || password.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(

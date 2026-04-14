@@ -10,6 +10,8 @@ class ValidateProjectScreen extends StatefulWidget {
 }
 
 class _ValidateProjectScreenState extends State<ValidateProjectScreen> {
+  static final RegExp _projectCodePattern = RegExp(r'^[A-Z0-9]{1,30}$');
+
   final _projectCodeController = TextEditingController();
 
   @override
@@ -52,13 +54,23 @@ class _ValidateProjectScreenState extends State<ValidateProjectScreen> {
                     onPressed: isLoading
                         ? null
                         : () {
-                      final projectCode = _projectCodeController.text.trim();
+                      final projectCode = _projectCodeController.text;
                       if (projectCode.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Vui lòng nhập mã dự án')),
                         );
                         return;
                       }
+
+                      if (!_projectCodePattern.hasMatch(projectCode)) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('ProjectCode phải đúng định dạng in hoa A-Z, 0-9 (ví dụ: TCJF00D)'),
+                          ),
+                        );
+                        return;
+                      }
+
                       context.read<DemoBloc>().add(ValidateProjectEvent(projectCode));
                     },
                     child: isLoading

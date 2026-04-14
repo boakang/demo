@@ -5,6 +5,7 @@
 - Xác thực mã dự án.
 - Đăng nhập tài khoản.
 - Vào màn hình trạng thái sau đăng nhập.
+Luồng demo chính hiện chạy qua một form tổng hợp trong app, đồng thời vẫn có các màn hình route riêng để test từng bước.
 
 ## 2. Công nghệ chính
 - Flutter + Dart.
@@ -44,8 +45,8 @@ lib/
 |   |   `-- loading_view.dart                      // Hiển thị loading
 |   |-- utilities/api_exception.dart               // Chuẩn hóa lỗi API
 |   |-- local_storage/local_storage_service.dart   // Lưu trữ cục bộ
-|   |-- service/auth_header_service.dart           // Hỗ trợ tạo auth header từ token local
-|   `-- formatter/no_leading_space_formatter.dart  // Chặn khoảng trắng đầu chuỗi
+|   |-- service/auth_header_service.dart           // Tiện ích tạo auth header từ token local
+|   `-- formatter/no_leading_space_formatter.dart  // Tiện ích chặn khoảng trắng đầu chuỗi
 |
 |-- data_app
 |   |-- url/app_urls.dart                          // Quản lý endpoint
@@ -75,6 +76,8 @@ lib/
 |   `-- home_screen.dart                           // Màn hình sau đăng nhập
 ```
 
+Lưu ý: app khởi chạy vào `LoginForm` trong `view_app/demo/demo_form.dart`. Ba màn hình trong `screens/` vẫn tồn tại để chạy route riêng `/validate-project`, `/login`, `/home`.
+
 ## 4. Tích hợp backend
 - Backend tham chiếu: HQSOFT.UserApi.
 - Base URL cho Android Emulator: http://10.0.2.2:5064.
@@ -89,7 +92,7 @@ Request body:
 
 ```json
 {
-  "projectCode": "TCJFOOD"
+  "projectCode": "TCJF00D"
 }
 ```
 
@@ -113,9 +116,9 @@ Request body:
 
 ```json
 {
-  "username": "S03",
-  "password": "Admin@123",
-  "projectCode": "TCJFOOD"
+  "username": "khang",
+  "password": "admin123",
+  "projectCode": "TCJF00D"
 }
 ```
 
@@ -127,7 +130,7 @@ Kết quả thành công:
   "message": "Login successfully.",
   "data": {
     "userId": "U001",
-    "userName": "S03",
+    "userName": "khang",
     "token": "..."
   }
 }
@@ -140,11 +143,14 @@ Lỗi thường gặp:
 Ghi chú:
 - Backend tham chiếu được triển khai trong HQSOFT.UserApi.
 - Mobile app đang gọi đúng 2 endpoint trên theo flow validate-project -> login.
+- Mobile app không normalize input; người dùng phải nhập đúng giá trị đang có trong database.
+- `AuthHeaderService` và `NoLeadingSpaceFormatter` là các tiện ích có sẵn trong codebase, nhưng hiện chưa được gắn trực tiếp vào luồng gọi API chính.
 
 ## 5. Trạng thái hiện tại
 - Đã chuyển cấu hình về local API cho emulator.
 - Luồng mobile đã map đúng 2 endpoint validate-project và login.
 - Payload đăng nhập đã đồng bộ với backend.
+- App hiện mở vào form demo trong `view_app/demo/demo_form.dart`; các route riêng trong `screens/` vẫn dùng được khi cần kiểm tra từng bước.
 
 ## 5.1 Các nội dung đã đạt (tóm tắt)
 - Đã triển khai đầy đủ BLoC cho luồng đăng nhập.

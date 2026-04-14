@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:mobile_app/core_app/formatter/no_leading_space_formatter.dart';
 import 'package:mobile_app/core_app/style/app_colors.dart';
 import 'package:mobile_app/core_app/widgets/general_button.dart';
 import 'package:mobile_app/core_app/widgets/general_text_field.dart';
@@ -16,6 +15,8 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  static final RegExp _projectCodePattern = RegExp(r'^[A-Z0-9]{1,30}$');
+
   final TextEditingController _projectCodeController = TextEditingController();
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -31,17 +32,30 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void _submitProjectCode() {
+    final projectCode = _projectCodeController.text;
+    if (!_projectCodePattern.hasMatch(projectCode)) {
+      ScaffoldMessenger.of(context)
+        ..clearSnackBars()
+        ..showSnackBar(
+          const SnackBar(
+            content: Text('ProjectCode phai dung dinh dang in hoa A-Z, 0-9 (vi du: TCJF00D).'),
+            backgroundColor: AppColors.error,
+          ),
+        );
+      return;
+    }
+
     context.read<DemoBloc>().add(
-          ValidateProjectEvent(_projectCodeController.text.trim()),
+          ValidateProjectEvent(projectCode),
         );
   }
 
   void _submitLogin(String projectCode) {
     context.read<DemoBloc>().add(
           LoginEvent(
-            username: _userNameController.text.trim(),
+            username: _userNameController.text,
             password: _passwordController.text,
-            projectCode: projectCode.trim(),
+            projectCode: projectCode,
           ),
         );
   }
@@ -346,7 +360,6 @@ class _ProjectCodeCard extends StatelessWidget {
               labelText: 'Mã dự án',
               hintText: 'Mã dự án',
               prefixIcon: const Icon(Icons.badge_outlined),
-              inputFormatters: const [NoLeadingSpaceFormatter()],
             ),
             const SizedBox(height: 14),
             GeneralButton(
@@ -404,9 +417,7 @@ class _LoginCard extends StatelessWidget {
             GeneralTextField(
               controller: userNameController,
               labelText: 'Tên đăng nhập',
-              hintText: 'Ví dụ: Nguyen Quoc An',
               prefixIcon: const Icon(Icons.person_outline),
-              inputFormatters: const [NoLeadingSpaceFormatter()],
             ),
             const SizedBox(height: 12),
             GeneralTextField(
@@ -421,7 +432,6 @@ class _LoginCard extends StatelessWidget {
                   isPasswordHidden ? Icons.visibility_off_outlined : Icons.visibility_outlined,
                 ),
               ),
-              inputFormatters: const [NoLeadingSpaceFormatter()],
             ),
             const SizedBox(height: 14),
             GeneralButton(

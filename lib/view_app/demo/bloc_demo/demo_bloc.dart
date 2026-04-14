@@ -25,7 +25,7 @@ class DemoBloc extends Bloc<DemoEvent, DemoState> {
       final result = await authRepository.validateProject(event.projectCode);
 
       if (result.success) {
-        final code = (result.projectCode ?? event.projectCode).trim();
+        final code = result.projectCode ?? event.projectCode;
         currentProjectCode = code;
         emit(ProjectValidatedState(code));
       } else {
@@ -50,15 +50,13 @@ class DemoBloc extends Bloc<DemoEvent, DemoState> {
       );
 
       if (result.success) {
-        await LocalStorageService.instance.setAuthToken(
-          (result.token ?? '').trim(),
-        );
+        await LocalStorageService.instance.setAuthToken(result.token ?? '');
         emit(
           LoginSuccessState(
-            userId: (result.userId ?? '0').trim(),
-            userName: (result.userName ?? '').trim(),
-            token: (result.token ?? '').trim(),
-            projectCode: (result.projectCode ?? event.projectCode).trim(),
+            userId: result.userId ?? '0',
+            userName: result.userName ?? '',
+            token: result.token ?? '',
+            projectCode: result.projectCode ?? event.projectCode,
           ),
         );
       } else {
